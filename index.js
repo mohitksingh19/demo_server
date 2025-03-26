@@ -1,7 +1,18 @@
-var http = require('http');
+// Import the express module
+const express = require('express');
 
-//create a server object:
-http.createServer(function (req, res) {
-  res.write('** Welcome to GlobalLogic!!!! **'); //write a response to the client
-  res.end(); //end the response
-}).listen(80); //the server object listens on port 80
+// Create an Express application
+const app = express();
+
+// Define a port for the app to listen on
+const port = 3000;
+
+// Set up a simple route
+app.get('/', (req, res) => {
+    res.send('Hello, world!');
+});
+
+// Start the server
+app.listen(port, () => {
+    console.log(`Server is running at http://localhost:${port}`);
+});
