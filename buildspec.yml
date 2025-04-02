@@ -10,7 +10,7 @@ phases:
     commands:
       - echo Installing dependencies...
       - npm install
-      - echo "NVD API Key is: $NVD_API_KEY" 
+      - echo $NVD_API_KEY
       - echo Installing OWASP Dependency-Check...
       - curl -L https://github.com/dependency-check/DependencyCheck/releases/download/v12.1.0/dependency-check-12.1.0-release.zip -o dependency-check.zip
       - unzip dependency-check.zip
