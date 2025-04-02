@@ -1,7 +1,8 @@
 version: 0.2
 env:
-  variables:
-    NVD_API_KEY: "19fe0687-a48d-4008-bec0-f77f385cc2b3"
+  secrets-manager:
+    NVD_API_KEY: "arn:aws:secretsmanager:us-east-1:585008079716:secret:NVD_API_KEY-8aSdnM"
+
 phases:
   install:
     runtime-versions:
@@ -9,24 +10,8 @@ phases:
     commands:
       - echo Installing dependencies...
       - npm install
+      - echo "NVD API Key is: $NVD_API_KEY" 
       - echo Installing OWASP Dependency-Check...
       - curl -L https://github.com/dependency-check/DependencyCheck/releases/download/v12.1.0/dependency-check-12.1.0-release.zip -o dependency-check.zip
       - unzip dependency-check.zip
       - chmod +x dependency-check/bin/dependency-check.sh
-  pre_build:
-    commands:
-      - echo Running OWASP Dependency-Check scan...
-      - dependency-check/bin/dependency-check.sh --project "demo_server" --scan . --out dependency-check-report
-  build:
-    commands:
-      - echo Building Node.js application...
-      - npm run build
-  post_build:
-    commands:
-      - echo Build completed.
-      - echo Dependency-Check report generated at dependency-check-report/dependency-check-report.html
-artifacts:
-  files:
-    - '**/*'
-  base-directory: build
-  discard-paths: yes
