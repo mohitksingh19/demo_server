@@ -20,7 +20,7 @@ phases:
     commands:
       - echo Running OWASP Dependency-Check scan...
       - dependency-check/bin/dependency-check.sh --project "demo_server" --scan . --out build --nvdApiEndpoint https://services.nvd.nist.gov/rest/json/cves/2.0/?resultsPerPage=20&startIndex=0
-      - ls -l build
+      - ls -l build/
   build:
     commands:
       - echo Building Node.js application...
@@ -29,9 +29,3 @@ phases:
     commands:
       - echo Build completed.
       - echo Dependency-Check report generated at dependency-check-report/dependency-check-report.html
-artifacts:
-  files:
-    - build/dependency-report.html
-  s3:
-    bucket: "first-sonarqube"  # Replace with your actual S3 bucket
-    path: "build/"
