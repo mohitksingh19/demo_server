@@ -13,13 +13,12 @@ phases:
       - echo Installing OWASP Dependency-Check...
       - curl -L https://github.com/dependency-check/DependencyCheck/releases/download/v12.1.0/dependency-check-12.1.0-release.zip -o dependency-check.zip
       - unzip dependency-check.zip
-      - chmod +x dependency-check/bin/dependency-check.sh
-      - aws s3 cp s3://first-sonarqube/nvd/ /tmp/nvd/ --recursive
+      - chmod +x dependency-check/bin/dependency-check.sh  //- aws s3 cp s3://first-sonarqube/nvd/ /tmp/nvd/ --recursive
       - export DEPENDENCY_CHECK_NVD_DATA=/tmp/nvd
   pre_build:
     commands:
       - echo Running OWASP Dependency-Check scan...
-      - dependency-check/bin/dependency-check.sh --project "demo_server" --scan . --nvdData /tmp/nvd/ --nvdApiKey $NVD_API_KEY --out dependency-check-report --noupdate
+      - dependency-check/bin/dependency-check.sh --project "demo_server" --scan . --nvdDatafeed https://first-sonarqube.s3.us-east-1.amazonaws.com/nvd/nvdcve-1.1-2025.json --nvdApiKey $NVD_API_KEY --out dependency-check-report --noupdate
   build:
     commands:
       - echo Building Node.js application...
