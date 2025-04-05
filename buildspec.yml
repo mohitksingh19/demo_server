@@ -18,7 +18,7 @@ phases:
   pre_build:
     commands:
       - echo Running OWASP Dependency-Check scan...
-      - dependency-check/bin/dependency-check.sh --project "demo_server" --scan . --nvdDatafeed https://first-sonarqube.s3.us-east-1.amazonaws.com/nvd/nvdcve-1.1-2025.json --nvdApiKey $NVD_API_KEY --out dependency-check-report --noupdate
+      - dependency-check/bin/dependency-check.sh --project "demo_server" --scan . --out dependency-check-report --disableNVD
   build:
     commands:
       - echo Building Node.js application...
