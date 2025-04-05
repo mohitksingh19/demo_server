@@ -17,7 +17,7 @@ phases:
   pre_build:
     commands:
       - echo Running OWASP Dependency-Check scan...
-      - dependency-check.sh --project "MyProject" --scan . --nvdApiKey $NVD_API_KEY  --out build/ --noupdate
+      - dependency-check/bin/dependency-check.sh --project "demo_server" --scan . --out dependency-check-report --noupdate
   build:
     commands:
       - echo Building Node.js application...
